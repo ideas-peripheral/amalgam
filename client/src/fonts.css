@@ -1,0 +1,51 @@
+@font-face {
+    font-family: resistance_regular;
+    src: url("fonts/resistanceRegular.otf") format("opentype");
+}
+
+@font-face {
+    font-family: titling;
+    src: url("fonts/Titling-Gothic-Medium.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "mononoki_bold";
+    src: url("fonts/mononoki-Bold.woff") format('woff'),
+    url("fonts/mononoki-Bold.woff2") format('woff2'),
+    url("fonts/mononoki-Bold.eot") format('eot'),
+    url("fonts/mononoki-Bold.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: "mononoki_bold_italic";
+    src: url("fonts/mononoki-BoldItalic.woff") format('woff'),
+    url("fonts/mononoki-BoldItalic.woff2") format('woff2'),
+    url("fonts/mononoki-BoldItalic.eot") format('eot'),
+    url("fonts/mononoki-BoldItalic.ttf") format('truetype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "mononoki_italic";
+    src: url("fonts/mononoki-Italic.woff") format('woff'),
+    url("fonts/mononoki-Italic.woff2") format('woff2'),
+    url("fonts/mononoki-Italic.eot") format('eot'),
+    url("fonts/mononoki-Italic.ttf") format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "mononoki_regular";
+    src: url("fonts/mononoki-Regular.woff") format('woff'),
+    url("fonts/mononoki-Regular.woff2") format('woff2'),
+    url("fonts/mononoki-Regular.eot") format('eot'),
+    url("fonts/mononoki-Regular.ttf") format('truetype');
+}
+
+:root {
+  --f_reg: 'mononoki_regular';
+  --f_bold: 'mononoki_bold';
+  --f_italic: 'mononoki_italic';
+  --f_bold_italic: 'mononoki_bold_italic'; 
+}

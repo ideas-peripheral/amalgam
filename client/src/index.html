@@ -1,0 +1,56 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Amalgam</title>
+    <link rel="stylesheet" type="text/css" href="./fonts.css">
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+</head>
+
+<script src="index.ts" defer></script>
+
+<body>
+    <div id="vue">
+        <div id="sidebar">
+            <div id="sidebarContents">
+                <div>
+                    <img src="./assets/thread.png">
+                    <div class="view" v-on:click="setActiveView({app: instance}, {category: 'thread', id: thread.id})" v-for="thread in threads"> {{ thread.title }} </div>
+                </div>
+                <div>
+                    <img src="./assets/source.png">
+                    <div class="view" v-on:click="setActiveView({app: instance}, {category: 'source', id: source.id})" v-for="source in segments"> {{ source.title }} </div>
+                </div>
+            </div>
+        </div>
+        <div id="text" contenteditable="true">
+            <div v-if="activeView.category === 'source' " v-for="segment in segments">
+                <div v-if="segment.id === activeView.id">
+                    <h2> {{ segment.title }} ﹆﹅</h2> 「 <span v-for="(word, index) in segment.words" v-bind:class="snippetIndices[index] ? 'highlight' : ''" :data-key="index" :data-segmentid="segment.id">
+						<span v-bind:class="word.case" v-on:click="focusPlay({app: instance}, {word: word, segment: segment, snippetIndex: 0})"> {{word.word}}</span>
+                    <span v-if="segment.snippets[index]" style="position: absolute; left: 80%;"> <span class="link" v-on:click="goto({app: instance}, {source: segment.snippets[index].threads[0], snippet: segment.snippets[index].id})" >{{ threads[segment.snippets[index].threads[0]].title }}  ↖︎</span> // <span class="delete" v-on:click="deleteSnippet({app: instance}, {snippetToDelete: segment.snippets[index]})"> ✕ </span></span>
+                    </span> 」
+                </div>
+            </div>
+            <div v-if="activeView.category === 'thread' " v-for="thread in threads">
+                <div v-if="thread.id === activeView.id">
+                    <h2> {{ thread.title }} ﹆﹅</h2>
+
+                    <span v-for="(snippetId, snippetIndex) in thread.snippets">
+			  			「<span v-for="(word, index) in snippets[snippetId].words" v-bind:class="word.word.case" v-on:click="focusPlay({app: instance}, {word: word.word, segment: segments[snippets[snippetId].source], snippetIndex: snippetIndex})" :data-key="word.key" :data-segmentid="snippets[snippetId].source"> <span> </span> {{ word.word.word }} </span>」
+                    <button v-on:click="goto({app: instance}, { source: snippets[snippetId].source, snippet: snippetId})"> {{ segments[snippets[snippetId].source].title }} ↖︎</button>
+                    </span>
+                </div>
+            </div>
+            <div v-if="capturing" id="capture" v-bind:style="initiateCapture({app: instance})">
+                <!-- <hr style="height: 0.5rem; color: black; background: black;"> -->
+                <input id="captureCategory" type="text" name="" v-on:keyup.enter="(e) => capture({app: instance}, {thread: e})">
+                <button style="outline: none; border: none;"> ↖︎ </button>
+            </div>
+        </div>
+
+        <audio ref="audio" v-if="activeView.id !== 'none'" id="audio" :src="`file:///${audioSource}`" @timeupdate="timeUpdate">
+        </audio>
+        <button id="sourceButton" v-on:click="selectRepo"> + </button>
+
+    </div>
+
+</body>

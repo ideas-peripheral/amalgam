@@ -1,0 +1,37 @@
+{
+  "scripts": {
+    "lint": "eslint src/*.ts --fix && tsc --noEmit",
+    "watch": "parcel src/index.ts src/preload.ts --target electron",
+    "start": "electron dist",
+    "compile": "rm -fr dist/ && parcel build src/index.ts src/preload.ts --target electron && cp src/package.json dist/package.json",
+    "prebuild": "npm run lint",
+    "build": "npm run compile && electron-builder"
+  },
+  "build": {
+    "directories": {
+      "app": "dist",
+      "output": "build"
+    },
+    "publish": {
+      "provider": "generic",
+      "url": ""
+    },
+    "electronUpdaterCompatibility": ">= 2.16"
+  },
+  "dependencies": {
+    "vue": "^2.6.11"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.25.0",
+    "@typescript-eslint/parser": "^2.25.0",
+    "electron": "^8.1.1",
+    "electron-builder": "^22.4.1",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "parcel": "^1.12.4",
+    "prettier": "^1.19.1",
+    "typescript": "^3.8.3"
+  },
+  "private": true
+}
